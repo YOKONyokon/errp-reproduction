@@ -35,4 +35,4 @@ jobs:
         run: docker run --rm errp:latest
 
       - name: Explicit environment self-check
-        run: docker run --rm errp:latest python /app/scripts/verify_env.py
+        run: docker run --rm --entrypoint python errp:latest /app/scripts/verify_env.py
