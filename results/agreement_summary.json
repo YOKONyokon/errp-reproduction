@@ -1,0 +1,30 @@
+{
+  "total_pipelines": 120,
+  "cells_with_paper_value": 104,
+  "MAE": 5.15,
+  "mean_signed_diff": 2.53,
+  "median_abs_diff": 4.56,
+  "pct_within_5": 56.7,
+  "pct_within_10": 87.5,
+  "MAE_by_dataset": {
+    "Coadaptation": 3.61,
+    "Gaze": 7.14,
+    "HRIcursor": 7.29,
+    "HRIrobot": 5.0,
+    "LSC": 6.13,
+    "VirtualCursor": 2.23
+  },
+  "MAE_by_feature": {
+    "FCB": 5.48,
+    "FCzCz": 5.18,
+    "Overlap": 5.72,
+    "Timepoints": 5.28,
+    "xDAWN": 4.17
+  },
+  "MAE_by_classifier": {
+    "GNB": 7.11,
+    "RBF-SVM": 3.63,
+    "SVM": 4.4,
+    "sLDA": 5.47
+  }
+}
