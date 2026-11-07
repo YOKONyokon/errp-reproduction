@@ -33,8 +33,13 @@ from mne.preprocessing import Xdawn
 import config
 
 # 载入官方 FCB 工具箱（把其 FCB_toolbox 目录加入路径）
+# 官方实现位于 third_party，运行时通过 volume 挂载；容器环境自检（无挂载）
+# 阶段允许其缺失，仅在真正使用 FCBFeature 时才给出明确错误。
 sys.path.append(str(config.FCB_TOOLBOX_DIR / "FCB_toolbox"))
-import FCB_toolbox  # 官方实现：FCB_spatial_filters / FCB_projections
+try:
+    import FCB_toolbox  # 官方实现：FCB_spatial_filters / FCB_projections
+except ImportError:
+    FCB_toolbox = None
 
 
 # ============================================================
@@ -213,6 +218,11 @@ class FCBFeature(BaseFeature):
         self.normalize = normalize   # 官方 fcb_feature_extraction norm=1
 
     def _fit(self, X, y):
+        if FCB_toolbox is None:
+            raise ImportError(
+                "FCB_toolbox 未找到：请通过 volume 挂载 third_party"
+                "(FCB-spatial-filter)；环境自检阶段不使用 FCB 特征。"
+            )
         # 官方函数要求 (通道×时间×试次)，按类别拆分
         z_err = np.transpose(X[y == config.LABEL_ERROR], (1, 2, 0))
         z_cor = np.transpose(X[y == config.LABEL_CORRECT], (1, 2, 0))
