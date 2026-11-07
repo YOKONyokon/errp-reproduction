@@ -40,6 +40,9 @@ BNCI_DIR = THIRD_PARTY_DIR / "bnci-013"
 # Gaze-Based Typesetting 数据集（figshare，真实浏览器通过 Cloudflare 下载）
 GAZE_DIR = THIRD_PARTY_DIR / "gaze"
 
+# NEMAR ERP CORE（nm000132，BIDS/EEGLAB，阶段 3 纳入；本阶段用 flankers/ERN 任务）
+NEMAR_DIR = THIRD_PARTY_DIR / "nm000132"
+
 # 结果输出目录（表格、图、JSON）
 RESULTS_DIR = ROOT_DIR / "results"
 
@@ -210,6 +213,29 @@ DATASET_GAZE = {
 }
 
 # 汇总：本次复现实际运行的数据集清单（7 个可获取数据集）
+# ============================================================
+# 数据集 H：NEMAR ERP CORE · flankers ERN（反应锁定，阶段 3 纳入）
+# ============================================================
+DATASET_ERPCORE_ERN = {
+    "key": "ERPCORE_ERN",
+    "name": "ERP CORE Eriksen flankers · ERN (Kappenman 2021, NEMAR nm000132)",
+    "data_dir": NEMAR_DIR,
+    "source_url": "https://nemar.org/dataset/nm000132",
+    "origin_paper_url": "https://doi.org/10.1016/j.neuroimage.2020.117465",
+    "license": "CC-BY-4.0",
+    "already_preprocessed": False,
+    # 原始 1024 Hz、30 EEG + 3 EOG，加载后降采样到 256
+    "raw_sfreq_hz": 1024,
+    "target_sfreq_hz": 256,
+    "n_eeg_channels": 30,
+    # 反应事件三位码：末位 1=正确、2=错误
+    "response_correct_codes": [111, 121, 212, 222],
+    "response_error_codes": [112, 122, 211, 221],
+    # 反应锁定窗口（response-locked），区别于反馈锁定数据集
+    "response_tmin_s": -0.2,
+    "response_tmax_s": 0.6,
+}
+
 ALL_DATASETS = [
     DATASET_LSC,
     DATASET_HRI,
@@ -218,6 +244,7 @@ ALL_DATASETS = [
     DATASET_BNCI,
     DATASET_VIRTUAL_CURSOR,
     DATASET_GAZE,
+    DATASET_ERPCORE_ERN,
 ]
 
 # ============================================================
@@ -250,6 +277,7 @@ SPATIAL_COMPONENTS = {
     "BNCI013": 4,
     "Gaze": 4,
     "VirtualCursor": 2,
+    "ERPCORE_ERN": 4,
 }
 
 

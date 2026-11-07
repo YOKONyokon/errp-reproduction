@@ -501,6 +501,81 @@ def load_gaze(max_subjects: int = None) -> EpochData:
 
 
 # ============================================================
+# 数据集 H：NEMAR ERP CORE flankers ERN（反应锁定）
+# ============================================================
+def load_erp_core_ern(max_subjects: int = None) -> EpochData:
+    """
+    加载 NEMAR ERP CORE flankers 的反应锁定 ERN 数据。
+
+    与反馈锁定数据集不同：这里以被试的按键反应为锚点（response-locked），
+    按反应事件三位码的末位判断对错（1=正确、2=错误）。原始 1024 Hz、
+    30 EEG + 3 EOG，加载时去 EOG、1–10 Hz 带通、切反应锁定 epoch、
+    基线校正，再降采样到 256 Hz，与其余数据集口径统一。
+    """
+    info = config.DATASET_ERPCORE_ERN
+    base = info["data_dir"]
+    subject_dirs = sorted(
+        p.name for p in base.glob("sub-*")
+        if (p / "eeg" / f"{p.name}_task-flankers_eeg.set").exists())
+    if max_subjects is not None:
+        subject_dirs = subject_dirs[:max_subjects]
+    if not subject_dirs:
+        raise FileNotFoundError(f"未找到 ERP CORE flankers 数据：{base}")
+
+    correct = set(info["response_correct_codes"])
+    error = set(info["response_error_codes"])
+
+    per_subject = []
+    for sdir in subject_dirs:
+        set_path = base / sdir / "eeg" / f"{sdir}_task-flankers_eeg.set"
+        raw = mne.io.read_raw_eeglab(
+            str(set_path), preload=True, verbose="ERROR")
+
+        # 1) 剔除 EOG
+        eog = [ch for ch in raw.ch_names if "EOG" in ch.upper()]
+        if eog:
+            raw.drop_channels(eog)
+
+        # 2) 1–10 Hz 带通（与其他数据集统一）
+        raw.filter(config.BANDPASS_LOW_HZ, config.BANDPASS_HIGH_HZ,
+                   verbose="ERROR")
+
+        # 3) 只保留正确/错误反应事件，重映射为统一事件 id
+        events, event_map = mne.events_from_annotations(raw, verbose="ERROR")
+        sel_events = []
+        for desc, evid in event_map.items():
+            code = int(desc)
+            if code in correct or code in error:
+                new_id = 100 if code in correct else 200
+                for i in np.where(events[:, 2] == evid)[0]:
+                    sel_events.append([int(events[i, 0]), 0, new_id])
+        if not sel_events:
+            raise KeyError(f"{sdir} 未找到反应事件")
+        sel_events = np.asarray(sel_events, dtype=int)
+        sel_events = sel_events[np.argsort(sel_events[:, 0])]
+
+        # 4) 反应锁定 epoch + 基线校正
+        event_id = {"correct": 100, "error": 200}
+        epochs = mne.Epochs(
+            raw, sel_events, event_id=event_id,
+            tmin=info["response_tmin_s"], tmax=info["response_tmax_s"],
+            baseline=(config.BASELINE_TMIN_S, config.BASELINE_TMAX_S),
+            preload=True, verbose="ERROR")
+
+        # 5) 降采样到 256 Hz
+        epochs.resample(info["target_sfreq_hz"], verbose="ERROR")
+
+        X = epochs.get_data(copy=True).astype(np.float64)
+        y = np.where(epochs.events[:, 2] == event_id["error"],
+                     config.LABEL_ERROR, config.LABEL_CORRECT)
+        subjects = np.array([sdir] * len(y))
+        per_subject.append(EpochData(
+            X=X, y=y, ch_names=list(epochs.ch_names),
+            sfreq=info["target_sfreq_hz"], subjects=subjects))
+    return _merge_epochs(per_subject)
+
+
+# ============================================================
 # 统一调度入口
 # ============================================================
 def load_dataset(key: str, max_subjects: int = None) -> EpochData:
@@ -508,7 +583,7 @@ def load_dataset(key: str, max_subjects: int = None) -> EpochData:
     按数据集 key 加载对应数据。
 
     支持的 key：LSC、HRIcursor、HRIrobot、Coadaptation、BNCI013、
-                VirtualCursor、Gaze。
+                VirtualCursor、Gaze、ERPCORE_ERN。
     max_subjects 对多被试数据集生效，用于快速冒烟测试。
     """
     if key == config.DATASET_LSC["key"]:
@@ -525,4 +600,6 @@ def load_dataset(key: str, max_subjects: int = None) -> EpochData:
         return load_virtual_cursor(max_subjects=max_subjects)
     if key == config.DATASET_GAZE["key"]:
         return load_gaze(max_subjects=max_subjects)
+    if key == config.DATASET_ERPCORE_ERN["key"]:
+        return load_erp_core_ern(max_subjects=max_subjects)
     raise ValueError(f"未知数据集 key：{key}")

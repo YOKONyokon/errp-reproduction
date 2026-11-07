@@ -70,27 +70,44 @@ ERRP（Error-Related Potential，错误相关电位）是人脑在感知“意�
 
 ```text
 errp-reproduction/
-├── README.md                 # 本说明：结构、流程、数据链接、结果与出处
-├── requirements.txt          # 固定版本的 Python 依赖
-├── setup_env.sh              # 一键环境配置（沙箱销毁后可重建）
-├── config.py                 # 全局配置：6 个数据集、路径、信号参数与链接
-├── download_data.py          # 数据下载（git/release/直链，幂等、断点续传）
-├── run_reproduction.py       # 主入口：跑 20 条管线并保存结果
+├── README.md                 # 完整说明：结构、流程、数据链接、结果与出处
+├── QUICKSTART.md             # 快速复现指南（从零到出结果的最短路径）
+├── requirements.txt          # 固定版本 pip 依赖（实测兼容）
+├── environment.yml           # 完整 conda 环境锁定文件
+├── setup_env.sh              # 一键 pip 环境配置（沙箱销毁后可重建）
+├── setup_conda.sh            # 一键 conda 环境配置（自动装 Miniconda）
+├── Dockerfile                # 容器化构建定义
+├── config.py                 # 全局配置：数据集、路径、信号参数与链接
+├── download_data.py          # 数据下载（git/release，幂等、断点续传，含 Gaze 引导）
+├── parallel_bnci.py          # （可选）并发下载 BNCI013
+├── run_reproduction.py       # 主入口：6 数据集 5×4 管线
+├── run_optimized.py          # 重跑 xDAWN/FCB 并重建对比（优化验证）
+├── run_experiments.py        # 第二部分 4.2–4.5 受控实验
+├── run_morphology.py         # 4.6 形态学与峰值/SNR
+├── run_regression.py         # 4.7 准确率~r²/SNR 回归
+├── scripts/
+│   ├── verify_env.py         # 环境与依赖自检
+│   └── verify_datasets.py    # 数据加载核验（输出数据卡片）
 ├── src/
 │   ├── preprocessing.py      # 滤波/基线/共平均参考（含数学原理注释）
 │   ├── data_loader.py        # 6 数据集加载器与统一 EpochData 容器
-│   ├── features.py           # 5 种特征（FCzCz / Timepoints / Overlap / xDAWN / FCB）
-│   ├── classifiers.py        # 4 种分类器（GNB / sLDA / SVM / RBF-SVM）
+│   ├── features.py           # 5 种特征（FCzCz/Timepoints/Overlap/xDAWN/FCB）
+│   ├── classifiers.py        # 4 种分类器（GNB/sLDA/SVM/RBF-SVM）
 │   ├── evaluation.py         # 交叉验证、balanced accuracy、置换检验
-│   └── plotting.py           # 热力图、混淆矩阵、波形图
-├── third_party/              # 官方源码与数据（见第 4–5 节出处）
+│   ├── plotting.py           # 热力图、混淆矩阵、波形图
+│   ├── discriminability.py   # r² 可分性与 template SNR
+│   ├── experiments.py        # 特征选择/时间窗/增强/降采样
+│   └── morphology.py         # 波形形态学：通道定位、单位归一、峰值与 SNR 窗
+├── third_party/              # 官方源码与数据（不随代码包分发，见第 4–5 节）
 │   ├── FCB-spatial-filter/   # FCB 官方 Python 工具箱（MIT），含 LSC 数据
 │   ├── dataset-ErrP-HRI/     # HRI 官方数据（cursor + robot，EEGLAB）
 │   ├── dataset-ErrP-coadaptation/  # Coadaptation 官方数据（EEGLAB）
 │   ├── virtual-cursor/       # Virtual Cursor 主仓库（代码参考）
 │   ├── virtual-cursor-release/     # 原始 EEG（data_1.zip 解压，EEG_s*.mat）
-│   └── bnci-013/             # BNCI 013-2015（TU Graz 镜像，12 个 .mat）
-└── results/                  # 运行结果：CSV / JSON / PNG
+│   ├── gaze/                 # Gaze 数据（12 个 .mat，浏览器手动下载）
+│   ├── errp_app_ref/         # 官方 MATLAB 参考实现（git clone）
+│   └── bnci-013/             # （可选）BNCI 013-2015，未跑通
+└── results/                  # 运行结果：CSV / JSON / PNG（含 part2_*）
 ```
 
 ---
@@ -133,7 +150,10 @@ bash setup_env.sh
 python3 download_data.py
 ```
 
-脚本通过 `git clone --depth 1` 拉取两个仓库，已存在则自动跳过，并在结束后校验关键文件。
+脚本通过 `git clone --depth 1` 拉取 4 个仓库（LSC、HRI、Coadaptation、Virtual Cursor），
+并下载 Virtual Cursor 的 Release 原始 EEG；已存在自动跳过、大文件断点续传，结束后校验关键文件。
+**Gaze 因 figshare 的 Cloudflare 挑战无法命令行获取，脚本会打印浏览器手动下载步骤。**
+完整操作流程见 `QUICKSTART.md`。
 
 ### 4.1 数据集 A：LSC（随 FCB 官方工具箱提供）
 

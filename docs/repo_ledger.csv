@@ -7,6 +7,7 @@ id,category,local_dir,remote_url,version_type,commit_hash,branch,commit_date,pri
 6,现有项目仓库,third_party/FCB-spatial-filter,https://github.com/gpiresML/FCB-spatial-filter.git,git,0b91fbd3ef9ec4bf2fe79f14c10b387b0e97bae6,main,2024-02-22,Python+MATLAB,116M,FCB空间滤波官方工具箱（Python+MATLAB），含LSC数据,可克隆已接入
 7,现有项目仓库,third_party/dataset-ErrP-coadaptation,https://github.com/stefan-ehrlich/dataset-ErrP-coadaptation,git,d7156e7f4f475949871e28012ca5254d626483b0,master,2026-01-22,EEGLAB数据,3.2G,人机协同自适应ErrP数据（27通道，.set/.fdt+日志）,可克隆已接入
 8,现有项目仓库,third_party/virtual-cursor,https://github.com/flowersteam/self_calibration_BCI_plosOne_2015,git,68515d071186bf6956c31b98c8307c077b37b018,master,2015-07-08,MATLAB,186M,自校准BCI虚拟光标代码仓库（原始EEG另在Release）,可克隆已接入
-9,现有数据目录,third_party/bnci-013,https://lampx.tugraz.at/~bci/database/013-2015/,直链镜像,NA,NA,NA,MATLAB数据,786M,BNCI 013-2015 monitoring ErrP（64通道512Hz，.mat）；下载进行中约21%,部分下载
+9,现有数据目录,third_party/bnci-013,https://lampx.tugraz.at/~bci/database/013-2015/,直链镜像,NA,NA,NA,MATLAB数据,825M,BNCI 013-2015 monitoring ErrP（64通道512Hz，.mat）；后台断点续传约25%,部分下载
 10,现有数据目录,third_party/gaze,https://doi.org/10.6084/m9.figshare.5938714.v1,figshare,NA,NA,NA,MATLAB数据,403M,Gaze-Based Typesetting ErrP（10被试61通道，已切epoch，.mat）,已下载已接入
 11,现有数据目录,third_party/virtual-cursor-release,https://github.com/flowersteam/self_calibration_BCI_plosOne_2015/releases/download/plosOne/data_1.zip,GitHub Release,NA,NA,NA,MATLAB数据,1.1G,Virtual Cursor原始EEG（16通道256Hz，EEG_s*.mat）,已下载已接入
+12,现有数据目录,third_party/nm000132,https://nemar.org/dataset/nm000132,NEMAR直链,NA,NA,NA,EEGLAB数据,17M,ERP CORE flankers ERN（NEMAR nm000132，30通道1024Hz，仅下flankers）；后台2 worker下载,部分下载
