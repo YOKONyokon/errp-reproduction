@@ -1,0 +1,6 @@
+dataset,model,fraction,n_train,bacc_mean,bacc_std
+Coadaptation,EEGNet,0.05,156,0.6305,0.0359
+Coadaptation,EEGNet,0.1,312,0.6393,0.035
+Coadaptation,EEGNet,0.25,780,0.6863,0.0443
+Coadaptation,EEGNet,0.5,1560,0.7364,0.0071
+Coadaptation,EEGNet,1.0,3120,0.7579,0.0179

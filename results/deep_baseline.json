@@ -1,0 +1,56 @@
+[
+  {
+    "dataset": "LSC",
+    "model": "EEGNet",
+    "n_trials": 190,
+    "bacc_mean": 0.6519,
+    "bacc_std": 0.0,
+    "seeds": "42",
+    "seconds": 6.2
+  },
+  {
+    "dataset": "HRIcursor",
+    "model": "EEGNet",
+    "n_trials": 5317,
+    "bacc_mean": 0.8359,
+    "bacc_std": 0.0,
+    "seeds": "42",
+    "seconds": 461.5
+  },
+  {
+    "dataset": "HRIrobot",
+    "model": "EEGNet",
+    "n_trials": 5822,
+    "bacc_mean": 0.5915,
+    "bacc_std": 0.0,
+    "seeds": "42",
+    "seconds": 318.0
+  },
+  {
+    "dataset": "Coadaptation",
+    "model": "EEGNet",
+    "n_trials": 3900,
+    "bacc_mean": 0.7817,
+    "bacc_std": 0.0,
+    "seeds": "42",
+    "seconds": 339.1
+  },
+  {
+    "dataset": "VirtualCursor",
+    "model": "EEGNet",
+    "n_trials": 4230,
+    "bacc_mean": 0.6351,
+    "bacc_std": 0.0,
+    "seeds": "42",
+    "seconds": 173.3
+  },
+  {
+    "dataset": "Gaze",
+    "model": "EEGNet",
+    "n_trials": 4931,
+    "bacc_mean": 0.8494,
+    "bacc_std": 0.0,
+    "seeds": "42",
+    "seconds": 650.4
+  }
+]

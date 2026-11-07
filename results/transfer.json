@@ -1,0 +1,74 @@
+{
+  "pairwise": [
+    {
+      "source": "HRIcursor",
+      "target": "HRIrobot",
+      "raw": 0.5395,
+      "EA": 0.5478
+    },
+    {
+      "source": "HRIcursor",
+      "target": "Coadaptation",
+      "raw": 0.5304,
+      "EA": 0.5107
+    },
+    {
+      "source": "HRIrobot",
+      "target": "HRIcursor",
+      "raw": 0.6449,
+      "EA": 0.6264
+    },
+    {
+      "source": "HRIrobot",
+      "target": "Coadaptation",
+      "raw": 0.4511,
+      "EA": 0.4722
+    },
+    {
+      "source": "Coadaptation",
+      "target": "HRIcursor",
+      "raw": 0.523,
+      "EA": 0.5056
+    },
+    {
+      "source": "Coadaptation",
+      "target": "HRIrobot",
+      "raw": 0.5001,
+      "EA": 0.4987
+    }
+  ],
+  "LODO": [
+    {
+      "target": "HRIcursor",
+      "raw": 0.6065,
+      "EA": 0.5974
+    },
+    {
+      "target": "HRIrobot",
+      "raw": 0.5244,
+      "EA": 0.5278
+    },
+    {
+      "target": "Coadaptation",
+      "raw": 0.5049,
+      "EA": 0.4906
+    }
+  ],
+  "within": [
+    {
+      "dataset": "HRIcursor",
+      "raw": 0.792,
+      "EA": 0.8045
+    },
+    {
+      "dataset": "HRIrobot",
+      "raw": 0.5799,
+      "EA": 0.5878
+    },
+    {
+      "dataset": "Coadaptation",
+      "raw": 0.7723,
+      "EA": 0.7735
+    }
+  ]
+}

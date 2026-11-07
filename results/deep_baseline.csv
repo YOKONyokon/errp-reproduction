@@ -1,0 +1,7 @@
+dataset,model,n_trials,bacc_mean,bacc_std,seeds,seconds
+LSC,EEGNet,190,0.6519,0.0,42,6.2
+HRIcursor,EEGNet,5317,0.8359,0.0,42,461.5
+HRIrobot,EEGNet,5822,0.5915,0.0,42,318.0
+Coadaptation,EEGNet,3900,0.7817,0.0,42,339.1
+VirtualCursor,EEGNet,4230,0.6351,0.0,42,173.3
+Gaze,EEGNet,4931,0.8494,0.0,42,650.4

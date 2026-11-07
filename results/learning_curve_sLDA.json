@@ -1,0 +1,242 @@
+[
+  {
+    "dataset": "LSC",
+    "model": "sLDA",
+    "fraction": 0.05,
+    "n_train": 8,
+    "bacc_mean": 0.7639,
+    "bacc_std": 0.0844
+  },
+  {
+    "dataset": "LSC",
+    "model": "sLDA",
+    "fraction": 0.1,
+    "n_train": 15,
+    "bacc_mean": 0.7969,
+    "bacc_std": 0.1134
+  },
+  {
+    "dataset": "LSC",
+    "model": "sLDA",
+    "fraction": 0.25,
+    "n_train": 38,
+    "bacc_mean": 0.7292,
+    "bacc_std": 0.0618
+  },
+  {
+    "dataset": "LSC",
+    "model": "sLDA",
+    "fraction": 0.5,
+    "n_train": 76,
+    "bacc_mean": 0.8003,
+    "bacc_std": 0.0466
+  },
+  {
+    "dataset": "LSC",
+    "model": "sLDA",
+    "fraction": 1.0,
+    "n_train": 152,
+    "bacc_mean": 0.9167,
+    "bacc_std": 0.0
+  },
+  {
+    "dataset": "HRIcursor",
+    "model": "sLDA",
+    "fraction": 0.05,
+    "n_train": 213,
+    "bacc_mean": 0.7019,
+    "bacc_std": 0.0115
+  },
+  {
+    "dataset": "HRIcursor",
+    "model": "sLDA",
+    "fraction": 0.1,
+    "n_train": 425,
+    "bacc_mean": 0.7519,
+    "bacc_std": 0.0074
+  },
+  {
+    "dataset": "HRIcursor",
+    "model": "sLDA",
+    "fraction": 0.25,
+    "n_train": 1063,
+    "bacc_mean": 0.772,
+    "bacc_std": 0.0098
+  },
+  {
+    "dataset": "HRIcursor",
+    "model": "sLDA",
+    "fraction": 0.5,
+    "n_train": 2126,
+    "bacc_mean": 0.7962,
+    "bacc_std": 0.0093
+  },
+  {
+    "dataset": "HRIcursor",
+    "model": "sLDA",
+    "fraction": 1.0,
+    "n_train": 4253,
+    "bacc_mean": 0.8097,
+    "bacc_std": 0.0
+  },
+  {
+    "dataset": "HRIrobot",
+    "model": "sLDA",
+    "fraction": 0.05,
+    "n_train": 233,
+    "bacc_mean": 0.5381,
+    "bacc_std": 0.0155
+  },
+  {
+    "dataset": "HRIrobot",
+    "model": "sLDA",
+    "fraction": 0.1,
+    "n_train": 466,
+    "bacc_mean": 0.5684,
+    "bacc_std": 0.0143
+  },
+  {
+    "dataset": "HRIrobot",
+    "model": "sLDA",
+    "fraction": 0.25,
+    "n_train": 1164,
+    "bacc_mean": 0.5659,
+    "bacc_std": 0.0036
+  },
+  {
+    "dataset": "HRIrobot",
+    "model": "sLDA",
+    "fraction": 0.5,
+    "n_train": 2328,
+    "bacc_mean": 0.5775,
+    "bacc_std": 0.0076
+  },
+  {
+    "dataset": "HRIrobot",
+    "model": "sLDA",
+    "fraction": 1.0,
+    "n_train": 4657,
+    "bacc_mean": 0.5903,
+    "bacc_std": 0.0
+  },
+  {
+    "dataset": "Coadaptation",
+    "model": "sLDA",
+    "fraction": 0.05,
+    "n_train": 156,
+    "bacc_mean": 0.6915,
+    "bacc_std": 0.0214
+  },
+  {
+    "dataset": "Coadaptation",
+    "model": "sLDA",
+    "fraction": 0.1,
+    "n_train": 312,
+    "bacc_mean": 0.7043,
+    "bacc_std": 0.0052
+  },
+  {
+    "dataset": "Coadaptation",
+    "model": "sLDA",
+    "fraction": 0.25,
+    "n_train": 780,
+    "bacc_mean": 0.7342,
+    "bacc_std": 0.0098
+  },
+  {
+    "dataset": "Coadaptation",
+    "model": "sLDA",
+    "fraction": 0.5,
+    "n_train": 1560,
+    "bacc_mean": 0.7515,
+    "bacc_std": 0.0082
+  },
+  {
+    "dataset": "Coadaptation",
+    "model": "sLDA",
+    "fraction": 1.0,
+    "n_train": 3120,
+    "bacc_mean": 0.7619,
+    "bacc_std": 0.0
+  },
+  {
+    "dataset": "VirtualCursor",
+    "model": "sLDA",
+    "fraction": 0.05,
+    "n_train": 169,
+    "bacc_mean": 0.5781,
+    "bacc_std": 0.0045
+  },
+  {
+    "dataset": "VirtualCursor",
+    "model": "sLDA",
+    "fraction": 0.1,
+    "n_train": 338,
+    "bacc_mean": 0.5993,
+    "bacc_std": 0.0138
+  },
+  {
+    "dataset": "VirtualCursor",
+    "model": "sLDA",
+    "fraction": 0.25,
+    "n_train": 846,
+    "bacc_mean": 0.625,
+    "bacc_std": 0.0118
+  },
+  {
+    "dataset": "VirtualCursor",
+    "model": "sLDA",
+    "fraction": 0.5,
+    "n_train": 1692,
+    "bacc_mean": 0.647,
+    "bacc_std": 0.004
+  },
+  {
+    "dataset": "VirtualCursor",
+    "model": "sLDA",
+    "fraction": 1.0,
+    "n_train": 3384,
+    "bacc_mean": 0.647,
+    "bacc_std": 0.0
+  },
+  {
+    "dataset": "Gaze",
+    "model": "sLDA",
+    "fraction": 0.05,
+    "n_train": 197,
+    "bacc_mean": 0.5536,
+    "bacc_std": 0.008
+  },
+  {
+    "dataset": "Gaze",
+    "model": "sLDA",
+    "fraction": 0.1,
+    "n_train": 394,
+    "bacc_mean": 0.5915,
+    "bacc_std": 0.01
+  },
+  {
+    "dataset": "Gaze",
+    "model": "sLDA",
+    "fraction": 0.25,
+    "n_train": 986,
+    "bacc_mean": 0.6311,
+    "bacc_std": 0.02
+  },
+  {
+    "dataset": "Gaze",
+    "model": "sLDA",
+    "fraction": 0.5,
+    "n_train": 1972,
+    "bacc_mean": 0.6502,
+    "bacc_std": 0.0134
+  },
+  {
+    "dataset": "Gaze",
+    "model": "sLDA",
+    "fraction": 1.0,
+    "n_train": 3944,
+    "bacc_mean": 0.651,
+    "bacc_std": 0.0
+  }
+]
