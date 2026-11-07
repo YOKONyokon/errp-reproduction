@@ -9,7 +9,7 @@
 |---|---|---|
 | 重点仓库核验、固定 commit | ✅ 达成 | `docs/repo_ledger.csv` / `.md`，8 个 git 仓库全部固定 commit、工作区干净 |
 | 可运行环境（conda） | ✅ 达成 | `errp` 环境隔离验证通过，自检脚本全绿 |
-| 可运行环境（Docker） | ⚠️ 受限 | Docker 已装、Dockerfile 已交付；本沙箱 capability/cgroup 硬限制无法构建/运行容器 |
+| 可运行环境（Docker） | ✅ 达成（云端 CI） | GitHub Actions 完成 `docker build` + 容器内 `verify_env.py`，自检全绿退出 0；运行 42385579910 |
 | ≥1 模型在 1 数据集端到端跑通 | ✅ 超额达成 | 复用现有 6 数据集 × 20 管线 = **120 条**端到端结果，95% 统计显著 |
 
 ## 2. 仓库核验与版本固定
@@ -33,10 +33,20 @@
 3. rootless 路径：`unshare -U` 可用，但 rootlesskit 依赖的 `newuidmap` 写 uid_map 被虚拟化层拒绝（EPERM，即使 setuid root 且含 CAP_SETUID）；单 uid 映射又无法处理多 uid/gid 文件（lchown EINVAL）。
 - 实测 `docker build` 在基础镜像多 gid 文件（etc/gshadow, gid 42）lchown 处失败；`docker run` 在 cgroup/层注册处失败。
 
-**建议（需用户拍板）**：
-- 方案 A：在具备权限的普通 VM 或 `--privileged` 主机上执行 `docker build -t errp .`，Dockerfile 已就绪、可直接构建；
-- 方案 B：由平台提供特权/放宽 capability（CAP_SYS_ADMIN、CAP_NET_ADMIN）与可写 cgroup 后在本机构建；
-- 当前 conda 环境已独立满足"可运行环境"与端到端验收，不阻塞进入下一阶段。
+**最终方案（用户拍板：方案 A 的云端 CI 形态）**：不在本机安装 Docker，改用 GitHub Actions 云端 runner 完成构建与验证，全程不触碰本机。
+
+**GitHub Actions CI 验证证据（结果：✅ 通过）**：
+- 公开仓库：https://github.com/YOKONyokon/errp-reproduction
+- 工作流：`.github/workflows/docker-verify.yml`（runs-on ubuntu-latest，自带 Docker）
+- 成功运行：https://github.com/YOKONyokon/errp-reproduction/actions/runs/42385579910（47s，conclusion=success）
+- 步骤全绿：checkout → setup-buildx → `docker build -t errp:latest .` → `docker run --rm errp:latest` → 显式 `--entrypoint python ... verify_env.py`
+- 容器内自检输出：6 个依赖版本与 site-packages 路径全部 OK；config/data_loader/features/classifiers/evaluation/discriminability 全部可导入；xDAWN/sLDA/GNB/SVM 可实例化；打印"环境自检通过，容器可运行"，退出码 0。
+
+**配套修复（为让无挂载自检可跑）**：
+- `src/features.py` 对 third_party 内 `FCB_toolbox` 的硬导入改为容错（try/except），仅在真正使用 FCBFeature 时才报明确 ImportError；conda 下 third_party 存在，实际运行行为不变。
+- 显式验证步骤用 `--entrypoint python` 覆盖，避免与 Dockerfile ENTRYPOINT 叠加成 `python python`。
+
+**本机零残留**：Windows 本机安装 Docker 过程产生的文件与功能已全部回滚（删除安装目录/日志，禁用 WSL 与 VirtualMachinePlatform，重启后完全生效），无 Docker 服务/进程。
 
 ## 5. 端到端证据（复用已跑通管线）
 - `results/summary_all.csv`：**120 条**管线（6 数据集 × 5 特征 × 4 分类器），字段含 bacc/tpr/fpr/chance95/p_value。
@@ -47,4 +57,4 @@
 - BNCI 013 仅下载约 21%，需用 `parallel_bnci.py` 断点续传至 12 个 .mat 完整后更新台账（与阶段 2 并行，不阻塞）。
 
 ## 7. M2 结论
-**conda 路线与端到端验收全部达成；Docker 路线的工程制品（Dockerfile）已就绪，但可运行镜像受当前沙箱硬限制无法在本机产出，需在特权环境构建。** 除 Docker 镜像构建受环境限制外，M2 门实质满足，建议确认 Docker 处理方案后进入下一阶段。
+**conda 与 Docker 两条环境路线、以及端到端验收现已全部达成。** conda 环境本机自检全绿；Docker 路线在不安装本机 Docker 的前提下，通过 GitHub Actions 云端 CI 完成镜像构建与容器内 `verify_env.py` 验证（运行 42385579910，success，退出码 0）；端到端复用 120 条已跑通管线。Windows 本机相关变动已全部回滚、零残留。**M2「可运行环境」门完全满足，可进入下一阶段。**
