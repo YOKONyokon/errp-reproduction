@@ -92,6 +92,14 @@ EpochData  X(n,ch,t) · y · ch_names · sfreq · subjects · tmin
   - within-session：5 折索引无重叠、并集覆盖全部、各折错误率贴近总体（.147）。
   - LOSO：测试被试与训练被试完全不相交（`assert_group_disjoint` 全 True）。
 
+### 端到端验证（Overlap + sLDA，已实测）
+
+- within-session 冒烟（`scripts/smoke_pipeline.py`）：6 个数据集全部跑通且非 chance，
+  bacc 依次为 LSC .916、HRIcursor .792、HRIrobot .580、Coadaptation .772、
+  VirtualCursor .646、Gaze .684，与历史最佳趋势一致。
+- LOSO 跨被试（`scripts/verify_loso.py`，VirtualCursor 8 被试）：逐被试
+  bacc .505–.691，**均值 .619**（std .067），低于 within-session 符合跨被试更难的预期。
+
 ## 6. 待办与依赖（数据下载，后台进行）
 
 - **BNCI013**：`parallel_bnci.py` 2 worker 断点续传，完成后补卡片并更新台账。
