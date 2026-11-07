@@ -1,0 +1,36 @@
+# 大数据与第三方仓库（运行时通过 -v 挂载，绝不打进镜像）
+third_party/
+
+# 运行产物与临时诊断（运行时挂载或本地生成）
+results/
+logs/
+diag/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# 版本控制与环境
+.git/
+.gitignore
+environment.yml
+miniconda.sh
+
+# 文档与工作笔记（镜像只需运行代码）
+docs/
+README.md
+scratch_paper.txt
+*.md
+
+# 结果 CSV（非运行必需）
+comparison_paper_vs_mine.csv
+gaze_comparison.csv
+paper_table3.csv
+
+# 本地环境脚本（容器内使用 Dockerfile 自己的流程）
+setup_env.sh
+setup_conda.sh
+download_data.py
+parallel_bnci.py

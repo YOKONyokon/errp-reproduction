@@ -1,0 +1,28 @@
+# =============================================================
+# ERRP 复现项目 · Git 忽略规则
+# 重点：阻止 31G 的 third_party 与运行产物入库
+# =============================================================
+
+# --- 大数据与第三方仓库（本地/运行时挂载，绝不入库）---
+third_party/
+
+# --- 运行产物与临时诊断 ---
+results/
+logs/
+diag/
+
+# --- Python 缓存 ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- 临时诊断脚本与工作笔记 ---
+diag_xdawn.py
+diag_xdawn2.py
+scratch_paper.txt
+
+# --- 本地安装器与环境包 ---
+miniconda.sh
+*.log

@@ -1,0 +1,12 @@
+id,category,local_dir,remote_url,version_type,commit_hash,branch,commit_date,primary_language,size,role_in_project,availability
+1,计划重点仓库,third_party/deepbci,https://github.com/RL-BCI-Lab/deepbci.git,git,9a0f59b7a28a3c2f26003ba73ceff9990e4f7071,master,2022-12-05,Python,56M,通用生物传感深度学习/强化学习框架（含CIBCI ErrP变异研究），统一多数据集接入,可克隆可运行
+2,计划重点仓库,third_party/ERP-Benchmark,https://github.com/DL4mHealth/ERP-Benchmark.git,git,e2d9c772e3406aea10e98f22042943b58612dd28,main,2026-09-29,Python,8.3M,2026 IEEE TBME基准：12 ERP数据集×15方法（手工特征/深度学习/基础模型）,可克隆可运行
+3,计划重点仓库,third_party/ERP-XTTN,https://github.com/cgenevier/ERP-XTTN.git,git,e25de7955b3198bb193ea61cf75922efcf91e414,main,2026-08-28,Python,22G,可解释交叉注意力ERP分类器（跨被试），含BNCI ErrP及EEGNet/EEG-Deformer/EPMN基线,可克隆可运行
+4,计划重点仓库,third_party/ERP_CORE,https://github.com/lucklab/ERP_CORE,git,c18b43d70d791ca914d90410afe4ff06d6f7f429,master,2020-08-13,MATLAB,491M,ERP CORE 7成分（含ERN Flankers）40被试分析脚本与处理结果（原始EEG在OSF）,可克隆可运行
+5,计划重点仓库,third_party/dataset-ErrP-HRI,https://github.com/stefan-ehrlich/dataset-ErrP-HRI.git,git,4bc3e52469934aa0551a2261a6e4e899d156c28f,master,2026-01-22,EEGLAB数据,2.4G,人机交互ErrP数据（cursor+robot，27通道，.set/.fdt）,可克隆已接入
+6,现有项目仓库,third_party/FCB-spatial-filter,https://github.com/gpiresML/FCB-spatial-filter.git,git,0b91fbd3ef9ec4bf2fe79f14c10b387b0e97bae6,main,2024-02-22,Python+MATLAB,116M,FCB空间滤波官方工具箱（Python+MATLAB），含LSC数据,可克隆已接入
+7,现有项目仓库,third_party/dataset-ErrP-coadaptation,https://github.com/stefan-ehrlich/dataset-ErrP-coadaptation,git,d7156e7f4f475949871e28012ca5254d626483b0,master,2026-01-22,EEGLAB数据,3.2G,人机协同自适应ErrP数据（27通道，.set/.fdt+日志）,可克隆已接入
+8,现有项目仓库,third_party/virtual-cursor,https://github.com/flowersteam/self_calibration_BCI_plosOne_2015,git,68515d071186bf6956c31b98c8307c077b37b018,master,2015-07-08,MATLAB,186M,自校准BCI虚拟光标代码仓库（原始EEG另在Release）,可克隆已接入
+9,现有数据目录,third_party/bnci-013,https://lampx.tugraz.at/~bci/database/013-2015/,直链镜像,NA,NA,NA,MATLAB数据,786M,BNCI 013-2015 monitoring ErrP（64通道512Hz，.mat）；下载进行中约21%,部分下载
+10,现有数据目录,third_party/gaze,https://doi.org/10.6084/m9.figshare.5938714.v1,figshare,NA,NA,NA,MATLAB数据,403M,Gaze-Based Typesetting ErrP（10被试61通道，已切epoch，.mat）,已下载已接入
+11,现有数据目录,third_party/virtual-cursor-release,https://github.com/flowersteam/self_calibration_BCI_plosOne_2015/releases/download/plosOne/data_1.zip,GitHub Release,NA,NA,NA,MATLAB数据,1.1G,Virtual Cursor原始EEG（16通道256Hz，EEG_s*.mat）,已下载已接入

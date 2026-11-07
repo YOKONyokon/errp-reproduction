@@ -1,0 +1,38 @@
+# =============================================================
+# ERRP 复现项目 · 云端 Docker 构建与环境验证（阶段 2 / M2 门）
+#
+# 全程在 GitHub 托管 runner 上完成，不依赖本机 Docker：
+#   1. 检出代码
+#   2. 基于仓库 Dockerfile 构建镜像
+#   3. 在容器内运行 scripts/verify_env.py 做环境自检
+# 自检通过（退出码 0）即代表"Docker 验证通过"。
+# =============================================================
+name: Docker Build & Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  docker-verify:
+    name: Build image & run verify_env
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image from Dockerfile
+        run: docker build -t errp:latest .
+
+      - name: Run container (default CMD = verify_env.py)
+        run: docker run --rm errp:latest
+
+      - name: Explicit environment self-check
+        run: docker run --rm errp:latest python /app/scripts/verify_env.py
